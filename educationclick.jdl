@@ -1,0 +1,63 @@
+entity Teacher {
+  name String required
+  email String required
+  feePerHour Double required
+}
+
+entity Timeslot {
+  startTime Instant required
+  endTime Instant required
+  availability Boolean required
+}
+
+entity Student {
+  firstName String required
+  lastName String required
+  contactNo String required
+  dateOfBirth LocalDate required
+  gender String required
+  email String required
+  password String required
+  username String required
+  guardianName String
+  address String
+  guardianContact String
+  guardianEmail String
+}
+
+entity Booking {
+  bookingDate Instant required  // The date and time when the booking was made
+  payment Integer required  // Payment for the booking
+}
+
+entity Subject {
+  name String required  // Name of the subject
+}
+
+entity Meeting {
+  meetingLink String required  // Link to a virtual meeting or other resource
+}
+
+entity StudyMaterial {
+  name String required  // File name or title of the study material
+  description String  // Description of the study material
+  file AnyBlob required  // Path or reference to the stored file
+  uploadDate Instant required  // Date when the material was uploaded
+}
+
+relationship ManyToOne {
+  Meeting{teacher(name)} to Teacher  // Meeting is associated with a teacher
+  Meeting{timeslot(startTime)} to Timeslot  // Meeting is associated with a timeslot
+  Meeting{student(firstName)} to Student  // Meeting is associated with a student
+  StudyMaterial{teacher(name)} to Teacher  // Study material is uploaded by a teacher
+  Booking{timeslot(startTime)} to Timeslot  // Booking is for a specific timeslot
+  Booking{teacher(name)} to Teacher  // Booking is with a specific teacher
+  Booking{student(firstName)} to Student  // Booking is made by a specific student
+  Teacher{subject(name)} to Subject
+}
+
+relationship OneToMany {
+  Teacher{timeslots} to Timeslot  // A teacher can have multiple timeslots
+}
+
+paginate Teacher, Timeslot, Student, Booking, Subject, Meeting, StudyMaterial with infinite-scroll

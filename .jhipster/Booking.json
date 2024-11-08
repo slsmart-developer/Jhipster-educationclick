@@ -1,0 +1,44 @@
+{
+  "annotations": {
+    "changelogDate": "20240510182617"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "bookingDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "payment",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Booking",
+  "pagination": "infinite-scroll",
+  "relationships": [
+    {
+      "otherEntityField": "startTime",
+      "otherEntityName": "timeslot",
+      "relationshipName": "timeslot",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "teacher",
+      "relationshipName": "teacher",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "firstName",
+      "otherEntityName": "student",
+      "relationshipName": "student",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}
